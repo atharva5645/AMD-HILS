@@ -123,9 +123,11 @@ export default function TopicPage() {
     const currentCacheKey = `${topic.id}:${activeMode}:${activePersona.id}`
     const currentResponse = responseCache[currentCacheKey] ?? null
 
-    // For Voice Teacher: try to get cached explain response
-    const explainCacheKey = `${topic.id}:explain:${activePersona.id}`
-    const cachedExplainResponse = responseCache[explainCacheKey] ?? null
+    // For Voice Teacher: explanation mode is `explain_v2`.
+    // Keep legacy `explain` fallback so previously cached results still work.
+    const explainV2CacheKey = `${topic.id}:explain_v2:${activePersona.id}`
+    const explainLegacyCacheKey = `${topic.id}:explain:${activePersona.id}`
+    const cachedExplainResponse = responseCache[explainV2CacheKey] ?? responseCache[explainLegacyCacheKey] ?? null
 
     const getButtonText = (): string => {
         switch (activeMode) {

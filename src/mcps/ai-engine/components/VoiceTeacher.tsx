@@ -126,7 +126,7 @@ export default function VoiceTeacher({ explainResponse, topicContext, personaId,
                 <Volume2 className="w-12 h-12 text-hils-text-dim mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-hils-text mb-2">Voice Teacher</h3>
                 <p className="text-sm text-hils-text-muted mb-4 max-w-md mx-auto">
-                    First generate an explanation in the <strong>Explain</strong> tab, then come back here to listen to it read aloud.
+                    First generate an explanation in the <strong>Explanation</strong> tab, then come back here to listen to it read aloud.
                 </p>
             </div>
         )

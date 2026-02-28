@@ -21,12 +21,16 @@ export default function ForgotPasswordPage() {
         return () => clearError()
     }, [clearError])
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
+    const requestResetLink = async () => {
         if (cooldown > 0) return
         clearError()
         await resetPassword(email)
         setCooldown(30)
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        await requestResetLink()
     }
 
     return (
@@ -121,7 +125,7 @@ export default function ForgotPasswordPage() {
 
                                 {/* Resend */}
                                 <button
-                                    onClick={handleSubmit as any}
+                                    onClick={requestResetLink}
                                     disabled={cooldown > 0 || isLoading}
                                     className="w-full text-sm text-hils-text-muted hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
