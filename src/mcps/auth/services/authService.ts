@@ -92,6 +92,11 @@ export const authService = {
     },
 
     onAuthChange(callback: (user: User | null) => void) {
+        if (!auth) {
+            console.warn('Firebase Auth not initialized. Auth listener disabled.')
+            callback(null)
+            return () => { }
+        }
         return onAuthStateChanged(auth, callback)
     },
 }

@@ -117,17 +117,23 @@ export const useAuthStore = create<AuthStore>((set) => ({
     clearError: () => set({ error: null, resetEmailSent: false }),
 
     initAuthListener: () => {
-        const unsubscribe = authService.onAuthChange((firebaseUser) => {
-            if (firebaseUser) {
-                set({
-                    user: toAuthUser(firebaseUser),
-                    isAuthenticated: true,
-                    isLoading: false,
-                })
-            } else {
-                set({ user: null, isAuthenticated: false, isLoading: false })
-            }
-        })
-        return unsubscribe
+        try {
+            const unsubscribe = authService.onAuthChange((firebaseUser) => {
+                if (firebaseUser) {
+                    set({
+                        user: toAuthUser(firebaseUser),
+                        isAuthenticated: true,
+                        isLoading: false,
+                    })
+                } else {
+                    set({ user: null, isAuthenticated: false, isLoading: false })
+                }
+            })
+            return unsubscribe
+        } catch (error) {
+            console.error('Auth listener failed to initialize:', error)
+            set({ user: null, isAuthenticated: false, isLoading: false })
+            return () => { } // no-op unsubscribe
+        }
     },
 }))

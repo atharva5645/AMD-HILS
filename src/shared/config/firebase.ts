@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
-import { getFunctions } from 'firebase/functions'
+import { getAuth, type Auth } from 'firebase/auth'
+import { getFirestore, type Firestore } from 'firebase/firestore'
+import { getFunctions, type Functions } from 'firebase/functions'
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -13,10 +13,24 @@ const firebaseConfig = {
     measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
 
-const app = initializeApp(firebaseConfig)
+let auth: Auth
+let db: Firestore
+let functions: Functions
 
-export const auth = getAuth(app)
-export const db = getFirestore(app)
-export const functions = getFunctions(app)
+try {
+    const app = initializeApp(firebaseConfig)
+    auth = getAuth(app)
+    db = getFirestore(app)
+    functions = getFunctions(app)
+} catch (error) {
+    console.error('Firebase initialization failed:', error)
+    console.error('Make sure VITE_FIREBASE_* environment variables are set.')
+    // Create null-safe placeholders so the app can still render
+    auth = null as unknown as Auth
+    db = null as unknown as Firestore
+    functions = null as unknown as Functions
+}
 
-export default app
+export { auth, db, functions }
+
+
