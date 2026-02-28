@@ -1,6 +1,5 @@
 # Dependencies
 node_modules
-functions/node_modules
 
 # Environment variables
 .env
@@ -8,11 +7,9 @@ functions/node_modules
 .env.development.local
 .env.test.local
 .env.production.local
-functions/.env
 
 # Build output
 dist
-functions/lib
 
 # IDE
 .vscode
