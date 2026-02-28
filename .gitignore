@@ -22,8 +22,10 @@ functions/lib
 .DS_Store
 Thumbs.db
 
-# Firebase
-.firebase
+# Vercel
+.vercel
+
+# Logs
 *.log
 
 # Service account keys (sensitive!)

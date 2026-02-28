@@ -14,9 +14,14 @@
 import { initializeApp, cert, type ServiceAccount } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
 import { vtuSyllabus } from '../src/shared/data/vtuSyllabus'
-import serviceAccount from './serviceAccountKey.json' assert { type: 'json' }
 
-initializeApp({ credential: cert(serviceAccount as ServiceAccount) })
+const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON
+if (!serviceAccountJson) {
+    throw new Error('Missing FIREBASE_SERVICE_ACCOUNT_JSON environment variable')
+}
+const serviceAccount = JSON.parse(serviceAccountJson) as ServiceAccount
+
+initializeApp({ credential: cert(serviceAccount) })
 const db = getFirestore()
 
 async function seed() {
