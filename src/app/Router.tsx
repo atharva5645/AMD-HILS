@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import LandingPage from '@/pages/LandingPage'
 import LoginPage from '@/mcps/auth/components/LoginPage'
 import SignupPage from '@/mcps/auth/components/SignupPage'
@@ -13,7 +13,7 @@ import ProtectedRoute from '@/shared/components/ProtectedRoute'
 
 export default function Router() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<LandingPage />} />
@@ -52,6 +52,6 @@ export default function Router() {
                 {/* Fallback */}
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
